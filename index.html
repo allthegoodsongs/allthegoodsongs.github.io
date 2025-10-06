@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All the Good Songs</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="./img/favicon.png">
+    <link rel="apple-touch-icon" href="./img/favicon_xl.png">
+    
+    <!-- Mozilla Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mozilla+Headline:wdth@105.4&family=Mozilla+Text:wght@200..700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Mozilla Text", sans-serif;
+            font-optical-sizing: auto;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Video Background */
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Overlay for better text readability */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 0;
+        }
+
+        /* Film Grain Noise */
+        .grain {
+            position: fixed;
+            top: -10rem;
+            left: -10rem;
+            width: calc(100% + 20rem);
+            height: calc(100% + 20rem);
+            background-image: url('./img/gnoise.png');
+            opacity: 0.16;
+            pointer-events: none;
+            z-index: 1000;
+            animation: grain 1s steps(2, end) infinite;
+        }
+
+        @keyframes grain {
+            0% { transform: translateY(2rem); }
+            10% { transform: translate(-1rem, -2rem); }
+            20% { transform: translate(-4rem, 1rem); }
+            30% { transform: translate(4.5rem, -4.5rem); }
+            40% { transform: translate(-1rem, 3.5rem); }
+            50% { transform: translate(-4.5rem, -2rem); }
+            60% { transform: translate(1rem, 3rem); }
+            70% { transform: translate(3.5rem, -4rem); }
+            80% { transform: translate(-4.5rem, 0.5rem); }
+            90% { transform: translate(3rem, -2.5rem); }
+            100% { transform: translate(-3.5rem); }
+        }
+
+        /* Main Content Container */
+        .content-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        /* Logo */
+        .logo {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+
+        /* Paragraph */
+        .description {
+            font-family: "Mozilla Text", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            color: #fff;
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0 auto 40px auto;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        /* Buttons Container */
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        /* Button Style */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 250, 235, 0.2);
+            border-radius: 999px;
+            color: #fff;
+            font-family: "Mozilla Headline", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings: "wdth" 105.4;
+            font-size: 20px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 250, 235, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            font-size: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-container {
+                width: 85%;
+            }
+
+            .logo {
+                max-width: 280px;
+                margin-bottom: 24px;
+            }
+
+            .description {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+
+            .btn {
+                max-width: 100%;
+                padding: 18px 32px;
+                font-size: 18px;
+            }
+
+            .btn i {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                max-width: 240px;
+                margin-bottom: 20px;
+            }
+
+            .description {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .btn {
+                padding: 16px 28px;
+                font-size: 16px;
+                gap: 10px;
+            }
+
+            .btn i {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <video id="video-background" autoplay muted loop playsinline>
+        <source src="./img/bg.mp4" type="video/mp4">
+    </video>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Film Grain -->
+    <div class="grain"></div>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <!-- Logo -->
+        <img src="./img/atgs_logo.svg" alt="All the Good Songs" class="logo">
+        
+        <!-- Description -->
+        <p class="description">
+            Sharing all the songs I love and hoping you'll enjoy them too.<br> Reach out today to get featured on my playlist or my page.
+        </p>
+        
+        <!-- Buttons -->
+        <div class="buttons-container">
+            <a href="https://www.instagram.com/allthegoodsongs_/" target="_blank" class="btn">
+                <i class="ph ph-instagram-logo"></i>
+                Instagram
+            </a>
+            <a href="https://open.spotify.com/playlist/6TREXYWbPtskXpfkqXZUpP?si=090d1bc0f2a548cb" target="_blank" class="btn">
+                <i class="ph ph-spotify-logo"></i>
+                Spotify
+            </a>
+            <a href="#" class="btn">
+                <i class="ph ph-shopping-bag"></i>
+                Merch
+            </a>
+            <a href="#" class="btn">
+                <i class="ph ph-envelope"></i>
+                Contact
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+
